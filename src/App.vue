@@ -1,9 +1,9 @@
 <script setup lang="ts">
+import Login from './views/Login/index.vue'
 </script>
 
 <template>
-  <div>Hello web!</div>
+  <Login />
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>
