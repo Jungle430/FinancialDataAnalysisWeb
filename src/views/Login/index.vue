@@ -45,7 +45,7 @@ const handleLogin = () => {
     <h2 class="login-title">金融数据分析系统</h2>
     <el-form :model="loginRequest" :rules="rules" label-width="80px">
       <el-form-item label="电话号码" prop="phone">
-        getToken<el-input v-model="loginRequest.phone" placeholder="请输入手机号码" />
+        <el-input v-model="loginRequest.phone" placeholder="请输入手机号码" />
       </el-form-item>
       <el-form-item label="密码" prop="password">
         <el-input v-model="loginRequest.password" placeholder="请输入密码" type="password" />
