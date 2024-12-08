@@ -1,6 +1,6 @@
 import { TokenStore } from "@/stores/tokenStore";
 import axios from "axios";
-import { ElMessage, ElMessageBox } from 'element-plus';
+import { message } from 'ant-design-vue';
 
 const HEADERS_TOKEN_KEY: string = 'X-Token'
 
@@ -19,7 +19,7 @@ service.interceptors.request.use(
     return config;
   },
   err => {
-    console.error(err);
+    message.error('网络或服务器错误,请稍后重试!');
     return Promise.reject(err);
   }
 )
@@ -28,22 +28,21 @@ service.interceptors.response.use(
   response => {
     const result = response.data;
     if (!result.success) {
-      ElMessageBox.confirm('You have been logged out, you can cancel to stay on this page, or log in again', 'Confirm logout', {
-        confirmButtonText: 'Re-Login',
-        cancelButtonText: 'Cancel',
-        type: 'warning'
-      })
+      switch (result.code) {
+        case 510:
+          message.error(result.errMessage || '没有权限,请登陆!');
+          break;
+        default:
+          message.error(result.errMessage || '服务器错误,请稍后重试!');
+          break;
+      }
       return Promise.reject(new Error(result.errMessage || 'Error'))
     }
     return result;
   },
 
   err => {
-    ElMessage({
-      message: err.message,
-      type: 'error',
-      duration: 5 * 1000
-    })
+    message.error('网络或服务器错误,请稍后重试!');
     return Promise.reject(err);
   }
 )
