@@ -1,16 +1,29 @@
 <script lang="ts" setup>
 import { login } from '@/apis/user';
-import router from '@/router';
 import { TokenStore } from '@/stores/tokenStore';
 import { PHONE_REGEX } from '@/utils/toolUtil';
+import { type FormInstance, type FormRules } from 'element-plus';
+import { Lock, User } from "@element-plus/icons-vue"
 import { reactive, ref } from 'vue';
+import { useRouter } from 'vue-router';
+import Owl from "@/views/Login/components/Owl.vue"
+import { useFocus } from '@/views/Login/composables/useFocus';
 
-const loginRequest = reactive({
+const router = useRouter();
+const tokenStore = TokenStore();
+
+const { isFocus, handleBlur, handleFocus } = useFocus()
+
+
+const loginFormRef = ref<FormInstance | null>(null);
+const loading = ref(false);
+
+const loginFormData = reactive({
   phone: '',
-  password: '',
+  password: ''
 });
 
-const rules = reactive({
+const loginFormRules: FormRules = {
   phone: [
     { required: true, message: '请输入电话号码', trigger: 'blur' },
     {
@@ -23,103 +36,102 @@ const rules = reactive({
     { required: true, message: '请输入密码', trigger: 'blur' },
     { min: 5, message: '密码长度至少为5位!', trigger: 'blur' },
   ],
-});
+};
 
-const loading = ref(false);
-
-
-const tokenStore = TokenStore();
 const handleLogin = () => {
-  login(loginRequest.phone, loginRequest.password)
+  login(loginFormData.phone, loginFormData.password)
     .then(res => {
       tokenStore.setToken(res.data.token);
-      console.log(tokenStore.getToken());
-      router.push("/");
+      router.push("/")
     })
-    .catch(err => { console.error(err) })
+    .catch(err => {
+      console.error(err);
+    });
 };
+
 </script>
 
 <template>
   <div class="login-container">
-    <h2 class="login-title">金融数据分析系统</h2>
-    <el-form :model="loginRequest" :rules="rules" label-width="80px">
-      <el-form-item label="电话号码" prop="phone">
-        <el-input v-model="loginRequest.phone" placeholder="请输入手机号码" />
-      </el-form-item>
-      <el-form-item label="密码" prop="password">
-        <el-input v-model="loginRequest.password" placeholder="请输入密码" type="password" />
-      </el-form-item>
-      <!-- 包裹登录按钮的 div 使按钮居中 -->
-      <div class="button-container">
-        <el-button type="primary" @click="handleLogin" :loading="loading">
-          登录
-        </el-button>
+    <Owl :close-eyes="isFocus" />
+    <div class="login-card">
+      <div class="title">
+        <img src="@/common/assets/images/layouts/logo-text-2.png">
       </div>
-    </el-form>
+      <div class="content">
+        <el-form ref="loginFormRef" :model="loginFormData" :rules="loginFormRules" @keyup.enter="handleLogin">
+          <el-form-item prop="phone">
+            <el-input v-model.trim="loginFormData.phone" placeholder="电话号码" type="text" tabindex="1" :prefix-icon="User"
+              size="large" />
+          </el-form-item>
+          <el-form-item prop="password">
+            <el-input v-model.trim="loginFormData.password" placeholder="密码" type="password" tabindex="2"
+              :prefix-icon="Lock" size="large" show-password @blur="handleBlur" @focus="handleFocus" />
+          </el-form-item>
+          <el-button :loading="loading" type="primary" size="large" @click.prevent="handleLogin">
+            登 录
+          </el-button>
+        </el-form>
+      </div>
+    </div>
   </div>
+
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .login-container {
-  width: 50%;
-  max-width: 1000px;
-  min-width: 400px;
-  padding: 8% 10%;
-  border: 1px solid #ccc;
-  border-radius: 15px;
-  background-color: #f9f9f9;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100%;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
 
-.login-title {
-  width: 100%;
-  text-align: center;
-  margin-bottom: 10%;
-  font-size: 2.0em;
-  color: #333;
-}
+  .login-card {
+    width: 480px;
+    max-width: 90%;
+    border-radius: 20px;
+    box-shadow: 0 0 10px #dcdfe6;
+    background-color: var(--el-bg-color);
+    overflow: hidden;
 
-el-form {
-  width: 100%;
-}
+    .title {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 150px;
 
-el-form-item {
-  width: 100%;
-  margin-bottom: 20px;
-  /* 增加间距，避免过于拥挤 */
-  font-size: 2.0em;
-}
+      img {
+        height: 100%;
+      }
+    }
 
-el-input {
-  width: 100%;
-  padding: 10px 12px;
-  /* 调整输入框内边距 */
-  font-size: 20px;
-  /* 调整文字大小 */
-  line-height: 1.8;
-  /* 让文字更舒适 */
-}
+    .content {
+      padding: 20px 50px 50px 50px;
 
-.button-container {
-  display: flex;
-  justify-content: center;
-  /* 使按钮居中 */
-  width: 100%;
-}
+      :deep(.el-input-group__append) {
+        padding: 0;
+        overflow: hidden;
 
-el-button {
-  width: 100%;
-  padding: 10px 0;
-  font-size: 16px;
-  border-radius: 8px;
+        .el-image {
+          width: 100px;
+          height: 40px;
+          border-left: 0px;
+          user-select: none;
+          cursor: pointer;
+          text-align: center;
+        }
+      }
+
+      .el-button {
+        width: 100%;
+        margin-top: 10px;
+      }
+    }
+  }
 }
 </style>
