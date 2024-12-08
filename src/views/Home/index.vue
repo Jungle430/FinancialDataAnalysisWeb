@@ -1,8 +1,13 @@
 <script lang="ts" setup>
+import SideBar from '@/components/SideBar.vue';
+import TopBar from '@/components/TopBar.vue';
 </script>
 
 <template>
-  <div>我是主页</div>
+  <div>
+    <TopBar />
+    <SideBar />
+  </div>
 </template>
 
 <style scoped></style>
