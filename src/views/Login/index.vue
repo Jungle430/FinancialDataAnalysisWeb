@@ -56,7 +56,7 @@ const handleLogin = () => {
     <Owl :close-eyes="isFocus" />
     <div class="login-card">
       <div class="title">
-        <img src="@/common/assets/images/layouts/logo-text-2.png">
+        <img src="@/assets/images/layouts/logo-text-2.png">
       </div>
       <div class="content">
         <el-form ref="loginFormRef" :model="loginFormData" :rules="loginFormRules" @keyup.enter="handleLogin">
