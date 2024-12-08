@@ -21,7 +21,6 @@
     "vue-router": "^4.4.5"
   },
   "devDependencies": {
-    "@arco-design/web-vue": "^2.56.3",
     "@tsconfig/node22": "^22.0.0",
     "@types/jsdom": "^21.1.7",
     "@types/node": "^22.9.3",
