@@ -8,21 +8,28 @@ import TelegramNegative from '@/assets/icons/telegram-negative.svg'
     <div class="left-side">
       <a-space>
         <img alt="logo"
-          src="//p3-armor.byteimg.com/tos-cn-i-49unhts6dw/dfdba5317c0c20ce20e64fac803d52bc.svg~tplv-49unhts6dw-image.image" />
+          src="//p3-armor.byteimg.com/tos-cn-i-49unhts6dw/dfdba5317c0c20ce20e64fac803d52bc.svg~tplv-49unhts6dw-image.image"
+          width="40" height="40" />
         <a-typography-title :style="{ margin: 0, fontSize: '23px' }" :heading="5">
-          金融数据分析系统
+          金融数据分析平台
         </a-typography-title>
       </a-space>
     </div>
     <ul class="right-side">
       <li>
-        <TelegramNegative :width="30" :height="30" />
+        <a href="https://t.me/Junglehaobin" target="_blank">
+          <TelegramNegative :width="30" :height="30" />
+        </a>
       </li>
       <li>
-        <IconGithub :size="30" />
+        <a href="https://github.com/Jungle430" target="_blank">
+          <IconGithub :size="30" />
+        </a>
       </li>
       <li>
-        <IconEmail :size="30" />
+        <a href="mailto:junglece430@gmail.com" target="_blank">
+          <IconEmail :size="30" />
+        </a>
       </li>
     </ul>
   </div>
@@ -40,7 +47,7 @@ import TelegramNegative from '@/assets/icons/telegram-negative.svg'
 .left-side {
   display: flex;
   align-items: center;
-  padding-left: 20px;
+  padding-left: 25px;
 }
 
 .center-side {
