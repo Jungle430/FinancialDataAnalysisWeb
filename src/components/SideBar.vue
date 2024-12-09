@@ -3,7 +3,7 @@ import { IconApps } from '@arco-design/web-vue/es/icon';
 </script>
 
 <template>
-  <div class="sidebar">
+  <div class="tab-bar-container">
     <a-menu :style="{ width: '200px', height: '100vh' }" :default-open-keys="['0']" :default-selected-keys="['0_1']"
       show-collapse-button>
       <a-sub-menu key="0">
@@ -26,12 +26,47 @@ import { IconApps } from '@arco-design/web-vue/es/icon';
   </div>
 </template>
 
-<style scoped>
-.sidebar {
-  box-sizing: border-box;
-  width: 100%;
-  height: fit-content;
+<style scoped lang="less">
+.tab-bar-container {
   position: relative;
-  background-color: var(--color-neutral-2);
+  background-color: var(--color-bg-2);
+
+  .tab-bar-box {
+    display: flex;
+    padding: 0 0 0 20px;
+    background-color: var(--color-bg-2);
+    border-bottom: 1px solid var(--color-border);
+
+    .tab-bar-scroll {
+      height: 32px;
+      flex: 1;
+      overflow: hidden;
+
+      .tags-wrap {
+        padding: 4px 0;
+        height: 48px;
+        white-space: nowrap;
+        overflow-x: auto;
+
+        :deep(.arco-tag) {
+          display: inline-flex;
+          align-items: center;
+          margin-right: 6px;
+          cursor: pointer;
+
+          &:first-child {
+            .arco-tag-close-btn {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .tag-bar-operation {
+    width: 100px;
+    height: 32px;
+  }
 }
 </style>
