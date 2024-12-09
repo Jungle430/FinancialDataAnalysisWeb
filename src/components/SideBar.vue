@@ -1,24 +1,23 @@
 <script lang="ts" setup>
-import { Message } from '@arco-design/web-vue';
 import {
   IconApps,
   IconBug,
   IconBulb
 } from '@arco-design/web-vue/es/icon';
 
-const onCollapse = (val: any, type: string) => {
-  const content = type === 'responsive' ? '触发响应式收缩' : '点击触发收缩';
-  Message.info({
-    content,
-    duration: 2000
-  });
-};
+// const onCollapse = (val: any, type: string) => {
+//   const content = type === 'responsive' ? '触发响应式收缩' : '点击触发收缩';
+//   Message.info({
+//     content,
+//     duration: 2000
+//   });
+// };
 </script>
 
 <template>
-  <div class="menu-demo">
+  <div>
     <a-menu :style="{ width: '200px', height: '100%' }" :default-open-keys="['0']" :default-selected-keys="['0_2']"
-      show-collapse-button breakpoint="xl" @collapse="onCollapse">
+      show-collapse-button breakpoint="xl">
       <a-sub-menu key="0">
         <template #icon><icon-apps></icon-apps></template>
         <template #title>Navigation 1</template>
@@ -48,5 +47,4 @@ const onCollapse = (val: any, type: string) => {
   </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>
