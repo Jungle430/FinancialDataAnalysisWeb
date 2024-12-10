@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <a-layout-footer class="footer">@ 2022-2024 Jungle | Beijing University of Posts and
+  <a-layout-footer class="footer">@ 2024-2025 Jungle | Beijing University of Posts and
     Telecommunications</a-layout-footer>
 </template>
 

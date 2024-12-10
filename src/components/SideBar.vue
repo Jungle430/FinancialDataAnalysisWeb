@@ -28,7 +28,7 @@ import { IconApps } from '@arco-design/web-vue/es/icon';
 
 <style scoped lang="less">
 .tab-bar-container {
-  position: relative;
+  position: absolute;
   background-color: var(--color-bg-2);
 
   .tab-bar-box {

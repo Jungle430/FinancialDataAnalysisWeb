@@ -7,7 +7,7 @@ import Footer from '@/components/Footer.vue';
 <template>
   <div>
     <TopBar />
-    <SideBar :style="{ width: '15%' }" />
+    <SideBar />
     <Footer />
   </div>
 </template>
