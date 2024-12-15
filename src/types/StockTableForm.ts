@@ -1,5 +1,4 @@
 export interface StockTableForm {
-  id?: number,
   code: string,
   platform: string,
   region: string,

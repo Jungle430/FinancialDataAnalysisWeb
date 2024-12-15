@@ -3,9 +3,10 @@ import { getAllCurrencies, getAllMarketRegions, getAllRegions } from '@/apis/sto
 import type { Currency } from '@/types/currency';
 import type { Region } from '@/types/region';
 import type { StockTableForm } from '@/types/stockTableForm';
-import type { SelectOptionData } from '@arco-design/web-vue';
+import { type TableColumnData, type SelectOptionData } from '@arco-design/web-vue';
 import { onMounted, ref } from 'vue';
-import { IconSearch, IconRefresh, IconDownload } from '@arco-design/web-vue/es/icon';
+import { IconSearch, IconRefresh } from '@arco-design/web-vue/es/icon';
+import type { Pagination } from '@/types/page';
 
 const stockTableFormData = ref<StockTableForm>({
   code: '',
@@ -83,14 +84,148 @@ onMounted(() => {
 });
 
 const search = () => {
+  // TODO:
   console.log('search');
   console.log(stockTableFormData.value)
 }
 
 const reset = () => {
+  // TODO:
   console.log('reset');
   console.log(stockTableFormData.value);
 }
+
+const tableColumns = ref<TableColumnData[]>([
+  {
+    title: "股票代码",
+    dataIndex: 'code',
+  },
+  {
+    title: '交易平台',
+    dataIndex: 'platform',
+  },
+  {
+    title: '国家/地区',
+    dataIndex: 'region',
+  },
+  {
+    title: '货币',
+    dataIndex: 'currency',
+  },
+  {
+    title: '公司名称',
+    dataIndex: 'name',
+  },
+  {
+    title: '交易国家/地区',
+    dataIndex: 'market_region',
+  }
+]);
+
+const pagination = ref<Pagination>({
+  current: 1,
+  pageSize: 8,
+  total: 16
+});
+
+const tableDataArrays = [[{
+  id: 1,
+  code: 'AAPL',
+  platform: 'NASDAQ',
+  region: '美国',
+  currency: 'USD',
+  name: '苹果公司',
+  market_region: '美国',
+},
+{
+  id: 2,
+  code: 'TSLA',
+  platform: 'NASDAQ',
+  region: '美国',
+  currency: 'USD',
+  name: '特斯拉公司',
+  market_region: '美国',
+},
+{
+  id: 3,
+  code: 'MSFT',
+  platform: 'NASDAQ',
+  region: '美国',
+  currency: 'USD',
+  name: '微软公司',
+  market_region: '美国',
+},
+{
+  id: 4,
+  code: 'BABA',
+  platform: 'NYSE',
+  region: '中国',
+  currency: 'USD',
+  name: '阿里巴巴集团',
+  market_region: '美国',
+},
+{
+  id: 5,
+  code: '700',
+  platform: '香港交易所',
+  region: '中国',
+  currency: 'HKD',
+  name: '腾讯控股',
+  market_region: '中国',
+},], [{
+  id: 6,
+  code: '9988',
+  platform: '香港交易所',
+  region: '中国',
+  currency: 'HKD',
+  name: '美团',
+  market_region: '中国',
+},
+{
+  id: 7,
+  code: 'GOOGL',
+  platform: 'NASDAQ',
+  region: '美国',
+  currency: 'USD',
+  name: '谷歌',
+  market_region: '美国',
+},
+{
+  id: 8,
+  code: 'AMZN',
+  platform: 'NASDAQ',
+  region: '美国',
+  currency: 'USD',
+  name: '亚马逊',
+  market_region: '美国',
+},
+{
+  id: 9,
+  code: 'FB',
+  platform: 'NASDAQ',
+  region: '美国',
+  currency: 'USD',
+  name: 'Meta Platforms',
+  market_region: '美国',
+},
+{
+  id: 10,
+  code: '00700',
+  platform: '香港交易所',
+  region: '中国',
+  currency: 'HKD',
+  name: '中国移动',
+  market_region: '中国',
+},]];
+
+const tableData = ref(tableDataArrays[0]);
+
+const onPageChange = (current: number) => {
+  // TODO:
+  console.log(current);
+  pagination.value.current = current;
+  tableData.value = tableDataArrays[current - 1];
+};
 </script>
 
 <template>
@@ -127,13 +262,13 @@ const reset = () => {
                 </a-form-item>
               </a-col>
               <a-col :span="7">
-                <a-form-item :label="'公司名称'">
-                  <a-input v-model="stockTableFormData.name" :placeholder="''" />
+                <a-form-item :label="'货币'">
+                  <a-select v-model="stockTableFormData.currency" :options="currencyOptions" :placeholder="''" />
                 </a-form-item>
               </a-col>
               <a-col :span="10">
-                <a-form-item :label="'货币'">
-                  <a-select v-model="stockTableFormData.currency" :options="currencyOptions" :placeholder="''" />
+                <a-form-item :label="'公司名称'">
+                  <a-input v-model="stockTableFormData.name" :placeholder="''" />
                 </a-form-item>
               </a-col>
             </a-row>
@@ -157,7 +292,9 @@ const reset = () => {
           </a-space>
         </a-col>
       </a-row>
-      <a-table />
+      <a-table :data="tableData" :columns="tableColumns" :pagination="pagination" @page-change="onPageChange">
+
+      </a-table>
     </a-card>
   </div>
 </template>
