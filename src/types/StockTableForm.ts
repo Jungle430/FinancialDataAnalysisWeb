@@ -5,5 +5,5 @@ export interface StockTableForm {
   region: string,
   currency: string,
   name: string,
-  marketCountry: string,
+  marketRegion: string,
 }

@@ -5,6 +5,7 @@ import type { Region } from '@/types/region';
 import type { StockTableForm } from '@/types/stockTableForm';
 import type { SelectOptionData } from '@arco-design/web-vue';
 import { onMounted, ref } from 'vue';
+import { IconSearch, IconRefresh, IconDownload } from '@arco-design/web-vue/es/icon';
 
 const stockTableFormData = ref<StockTableForm>({
   code: '',
@@ -12,7 +13,7 @@ const stockTableFormData = ref<StockTableForm>({
   region: '',
   currency: '',
   name: '',
-  marketCountry: ''
+  marketRegion: ''
 });
 
 const currencyKinds = ref<Currency[]>([]);
@@ -81,7 +82,15 @@ onMounted(() => {
     });
 });
 
-const spanLength = ref(10);
+const search = () => {
+  console.log('search');
+  console.log(stockTableFormData.value)
+}
+
+const reset = () => {
+  console.log('reset');
+  console.log(stockTableFormData.value);
+}
 </script>
 
 <template>
@@ -92,51 +101,63 @@ const spanLength = ref(10);
           <a-form :model="stockTableFormData" :label-col-props="{ span: 6 }" :wrapper-col-props="{ span: 18 }"
             label-align="left">
 
-            <a-row :gutter="16">
-              <a-col :span="spanLength">
+            <a-row :gutter="14">
+              <a-col :span="7">
                 <a-form-item :label="'股票代码'">
                   <a-input v-model="stockTableFormData.code" :placeholder="''" />
                 </a-form-item>
               </a-col>
-              <a-col :span="spanLength">
+              <a-col :span="7">
                 <a-form-item :label="'交易平台'">
                   <a-input v-model="stockTableFormData.platform" :placeholder="''" />
                 </a-form-item>
               </a-col>
-            </a-row>
-
-            <a-row :gutter="16">
-              <a-col :span="spanLength">
-                <a-form-item :label="'国家/地区'">
-                  <a-select v-model="stockTableFormData.region" :options="regionOptions" :placeholder="''" />
-                </a-form-item>
-              </a-col>
-              <a-col :span="spanLength">
-                <a-form-item :label="'货币'">
-                  <a-select v-model="stockTableFormData.currency" :options="currencyOptions" :placeholder="''" />
-                </a-form-item>
-              </a-col>
-            </a-row>
-
-            <a-row :gutter="16">
-              <a-col :span="spanLength">
-                <a-form-item :label="'公司名称'">
-                  <a-input v-model="stockTableFormData.name" :placeholder="''" />
-                </a-form-item>
-              </a-col>
-              <a-col :span="spanLength">
+              <a-col :span="10">
                 <a-form-item :label="'交易国家/地区'">
-                  <a-select v-model="stockTableFormData.marketCountry" :options="marketRegionsOptions"
+                  <a-select v-model="stockTableFormData.marketRegion" :options="marketRegionsOptions"
                     :placeholder="''" />
                 </a-form-item>
               </a-col>
             </a-row>
 
+            <a-row :gutter="16">
+              <a-col :span="7">
+                <a-form-item :label="'国家/地区'">
+                  <a-select v-model="stockTableFormData.region" :options="regionOptions" :placeholder="''" />
+                </a-form-item>
+              </a-col>
+              <a-col :span="7">
+                <a-form-item :label="'公司名称'">
+                  <a-input v-model="stockTableFormData.name" :placeholder="''" />
+                </a-form-item>
+              </a-col>
+              <a-col :span="10">
+                <a-form-item :label="'货币'">
+                  <a-select v-model="stockTableFormData.currency" :options="currencyOptions" :placeholder="''" />
+                </a-form-item>
+              </a-col>
+            </a-row>
           </a-form>
-
         </a-col>
-
+        <a-divider style="height: 90px" direction="vertical" />
+        <a-col :flex="'86px'" style="text-align: right">
+          <a-space direction="vertical" :size="20">
+            <a-button type="primary" @click="search">
+              <template #icon>
+                <icon-search />
+              </template>
+              {{ '搜索' }}
+            </a-button>
+            <a-button type="secondary" @click="reset">
+              <template #icon>
+                <icon-refresh />
+              </template>
+              {{ '重置' }}
+            </a-button>
+          </a-space>
+        </a-col>
       </a-row>
+      <a-table />
     </a-card>
   </div>
 </template>
