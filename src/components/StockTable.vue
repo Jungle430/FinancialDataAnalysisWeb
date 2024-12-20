@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { getAllCurrencies, getAllMarketRegions, getAllRegions } from '@/apis/stock';
+import { getAllCurrencies, getAllMarketRegions, getAllRegions, getStockTable } from '@/apis/stock';
 import type { Currency } from '@/types/currency';
 import type { Region } from '@/types/region';
 import type { StockTableForm } from '@/types/stockTableForm';
@@ -7,7 +7,36 @@ import { type TableColumnData, type SelectOptionData } from '@arco-design/web-vu
 import { onMounted, ref } from 'vue';
 import { IconSearch, IconRefresh } from '@arco-design/web-vue/es/icon';
 import type { Pagination } from '@/types/page';
+import type { StockTableDataResponse } from '@/types/stockTableDataResponse';
 
+const tableColumns = ref<TableColumnData[]>([
+  {
+    title: "股票代码",
+    dataIndex: 'code',
+  },
+  {
+    title: '公司名称',
+    dataIndex: 'name',
+  },
+  {
+    title: '交易平台',
+    dataIndex: 'platform',
+  },
+  {
+    title: '交易货币',
+    dataIndex: 'currency',
+  },
+  {
+    title: '国家/地区',
+    dataIndex: 'region',
+  },
+  {
+    title: '交易国家/地区',
+    dataIndex: 'marketRegion',
+  }
+]);
+
+const loading = ref(false);
 const stockTableFormData = ref<StockTableForm>({
   code: '',
   platform: '',
@@ -17,215 +46,112 @@ const stockTableFormData = ref<StockTableForm>({
   marketRegion: ''
 });
 
-const currencyKinds = ref<Currency[]>([]);
-const regions = ref<Region[]>([]);
-const marketRegions = ref<Region[]>([]);
-
-const currencyOptions = ref<SelectOptionData[]>(
-  [
-    {
-      label: '所有货币',
-      value: '',
-    }
-  ]
-);
-
-const regionOptions = ref<SelectOptionData[]>(
-  [
-    {
-      label: '所有国家/地区',
-      value: '',
-    }
-  ]
-);
-
-const marketRegionsOptions = ref<SelectOptionData[]>(
-  [
-    {
-      label: '所有国家/地区',
-      value: '',
-    }
-  ]
-);
-
+const currencyOptions = ref<SelectOptionData[]>([]);
 onMounted(() => {
+  currencyOptions.value.push({
+    label: '所有货币',
+    value: ''
+  });
   getAllCurrencies()
     .then(res => {
-      currencyKinds.value.push(...res.data.currencies);
-      for (let i = 0; i < currencyKinds.value.length; i++) {
+      res.data.currencies.forEach((currency: Currency, _: number) => {
         currencyOptions.value.push({
-          label: `${currencyKinds.value[i].simplifiedChineseName}(${currencyKinds.value[i].englishName})`,
-          value: currencyKinds.value[i].currencyCode
-        });
-      }
-    });
-
-  getAllRegions()
-    .then(res => {
-      regions.value.push(...res.data.regions);
-      for (let i = 0; i < regions.value.length; i++) {
-        regionOptions.value.push({
-          label: `${regions.value[i].simplifiedChineseName}(${regions.value[i].englishName})`,
-          value: regions.value[i].isoCode,
-        });
-      }
-    });
-
-  getAllMarketRegions()
-    .then(res => {
-      marketRegions.value.push(...res.data.regions);
-      for (let i = 0; i < marketRegions.value.length; i++) {
-        marketRegionsOptions.value.push({
-          label: `${marketRegions.value[i].simplifiedChineseName}(${marketRegions.value[i].englishName})`,
-          value: marketRegions.value[i].isoCode,
-        });
-      }
+          label: `${currency.simplifiedChineseName}(${currency.englishName})`,
+          value: currency.currencyCode
+        })
+      })
     });
 });
 
+const regionOptions = ref<SelectOptionData[]>([]);
+onMounted(() => {
+  regionOptions.value.push({
+    label: '所有国家/地区',
+    value: '',
+  });
+  getAllRegions()
+    .then(res => {
+      res.data.regions.forEach((region: Region, _: number) => {
+        regionOptions.value.push({
+          label: `${region.simplifiedChineseName}(${region.englishName})`,
+          value: region.isoCode
+        })
+      })
+    });
+});
+
+const marketRegionsOptions = ref<SelectOptionData[]>([]);
+onMounted(() => {
+  marketRegionsOptions.value.push({
+    label: '所有国家/地区',
+    value: '',
+  });
+  getAllMarketRegions()
+    .then(res => {
+      res.data.regions.forEach((marketRegion: Region, _: number) => {
+        marketRegionsOptions.value.push({
+          label: `${marketRegion.simplifiedChineseName}(${marketRegion.englishName})`,
+          value: marketRegion.isoCode
+        })
+      });
+    })
+});
+
+const tableData = ref<StockTableForm[]>([]);
+const pagination = ref<Pagination>({
+  current: 1,
+  pageSize: 10,
+  total: 0
+});
+onMounted(() => {
+  fetchPageData(stockTableFormData.value, 1);
+});
+
+const onPageChange = (current: number) => {
+  fetchPageData(stockTableFormData.value, current);
+};
+
+const fetchPageData = (searchData: StockTableForm, current: number) => {
+  loading.value = true;
+  getStockTable(searchData,
+    current,
+    pagination.value.pageSize
+  ).then(res => {
+    tableData.value = [];
+    let stockTableDataResponse = res.data as StockTableDataResponse;
+    stockTableDataResponse.stockTags.forEach((stockTag) => {
+      tableData.value.push({
+        code: stockTag.code,
+        platform: stockTag.platform,
+        region: `${stockTag.region.simplifiedChineseName}(${stockTag.region.englishName})`,
+        currency: `${stockTag.currency.simplifiedChineseName}(${stockTag.currency.englishName})`,
+        name: stockTag.name,
+        marketRegion: `${stockTag.marketRegion.simplifiedChineseName}(${stockTag.marketRegion.englishName})`
+      });
+    });
+    pagination.value.current = current;
+    pagination.value.total = stockTableDataResponse.total;
+  })
+    .finally(() => {
+      loading.value = false;
+    })
+}
+
 const search = () => {
-  // TODO:
-  console.log('search');
-  console.log(stockTableFormData.value)
+  fetchPageData(stockTableFormData.value, 1);
 }
 
 const reset = () => {
-  // TODO:
-  console.log('reset');
-  console.log(stockTableFormData.value);
-}
-
-const tableColumns = ref<TableColumnData[]>([
-  {
-    title: "股票代码",
-    dataIndex: 'code',
-  },
-  {
-    title: '交易平台',
-    dataIndex: 'platform',
-  },
-  {
-    title: '国家/地区',
-    dataIndex: 'region',
-  },
-  {
-    title: '货币',
-    dataIndex: 'currency',
-  },
-  {
-    title: '公司名称',
-    dataIndex: 'name',
-  },
-  {
-    title: '交易国家/地区',
-    dataIndex: 'market_region',
+  stockTableFormData.value = {
+    code: '',
+    platform: '',
+    region: '',
+    currency: '',
+    name: '',
+    marketRegion: ''
   }
-]);
-
-const pagination = ref<Pagination>({
-  current: 1,
-  pageSize: 8,
-  total: 16
-});
-
-const tableDataArrays = [[{
-  id: 1,
-  code: 'AAPL',
-  platform: 'NASDAQ',
-  region: '美国',
-  currency: 'USD',
-  name: '苹果公司',
-  market_region: '美国',
-},
-{
-  id: 2,
-  code: 'TSLA',
-  platform: 'NASDAQ',
-  region: '美国',
-  currency: 'USD',
-  name: '特斯拉公司',
-  market_region: '美国',
-},
-{
-  id: 3,
-  code: 'MSFT',
-  platform: 'NASDAQ',
-  region: '美国',
-  currency: 'USD',
-  name: '微软公司',
-  market_region: '美国',
-},
-{
-  id: 4,
-  code: 'BABA',
-  platform: 'NYSE',
-  region: '中国',
-  currency: 'USD',
-  name: '阿里巴巴集团',
-  market_region: '美国',
-},
-{
-  id: 5,
-  code: '700',
-  platform: '香港交易所',
-  region: '中国',
-  currency: 'HKD',
-  name: '腾讯控股',
-  market_region: '中国',
-},], [{
-  id: 6,
-  code: '9988',
-  platform: '香港交易所',
-  region: '中国',
-  currency: 'HKD',
-  name: '美团',
-  market_region: '中国',
-},
-{
-  id: 7,
-  code: 'GOOGL',
-  platform: 'NASDAQ',
-  region: '美国',
-  currency: 'USD',
-  name: '谷歌',
-  market_region: '美国',
-},
-{
-  id: 8,
-  code: 'AMZN',
-  platform: 'NASDAQ',
-  region: '美国',
-  currency: 'USD',
-  name: '亚马逊',
-  market_region: '美国',
-},
-{
-  id: 9,
-  code: 'FB',
-  platform: 'NASDAQ',
-  region: '美国',
-  currency: 'USD',
-  name: 'Meta Platforms',
-  market_region: '美国',
-},
-{
-  id: 10,
-  code: '00700',
-  platform: '香港交易所',
-  region: '中国',
-  currency: 'HKD',
-  name: '中国移动',
-  market_region: '中国',
-},]];
-
-const tableData = ref(tableDataArrays[0]);
-
-const onPageChange = (current: number) => {
-  // TODO:
-  console.log(current);
-  pagination.value.current = current;
-  tableData.value = tableDataArrays[current - 1];
-};
+  search();
+}
 </script>
 
 <template>
@@ -292,8 +218,8 @@ const onPageChange = (current: number) => {
           </a-space>
         </a-col>
       </a-row>
-      <a-table :data="tableData" :columns="tableColumns" :pagination="pagination" @page-change="onPageChange">
-
+      <a-table :loading="loading" :data="tableData" :columns="tableColumns" :pagination="pagination"
+        @page-change="onPageChange">
       </a-table>
     </a-card>
   </div>
@@ -301,13 +227,13 @@ const onPageChange = (current: number) => {
 
 <style scoped lang="less">
 .container {
-  padding: 0 20px 20px 20px;
+  padding: 0 20px 20px 0px;
 }
 
 :deep(.arco-table-th) {
   &:last-child {
     .arco-table-th-item-title {
-      margin-left: 16px;
+      margin-left: 0px;
     }
   }
 }

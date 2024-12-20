@@ -65,7 +65,7 @@ import { IconApps } from '@arco-design/web-vue/es/icon';
   }
 
   .tag-bar-operation {
-    width: 12vw;
+    width: 9.5vw;
     height: 10vh;
   }
 }

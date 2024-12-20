@@ -19,7 +19,7 @@ import StockTable from '@/components/StockTable.vue';
 <style scoped>
 .sideStock {
   position: absolute;
-  width: 89%;
-  margin-left: 12%;
+  width: 87.7%;
+  margin-left: 13.7%;
 }
 </style>
