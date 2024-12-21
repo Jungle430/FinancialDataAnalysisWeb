@@ -2,7 +2,7 @@
 import SideBar from '@/components/SideBar.vue';
 import TopBar from '@/components/TopBar.vue';
 import Footer from '@/components/Footer.vue';
-import StockTable from '@/components/StockTable.vue';
+import { RouterView } from 'vue-router';
 </script>
 
 <template>
@@ -10,7 +10,7 @@ import StockTable from '@/components/StockTable.vue';
     <TopBar />
     <SideBar />
     <div class='sideStock'>
-      <StockTable />
+      <RouterView />
       <Footer />
     </div>
   </div>
