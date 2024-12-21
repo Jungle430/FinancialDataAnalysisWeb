@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { getAllCurrency, getAllRegions, getStockIndexTable } from '@/apis/stockIndex';
+import { getAllCurrency, getAllRegion, getStockIndexTableData } from '@/apis/stockIndex';
 import type { Currency } from '@/types/currency';
 import type { Region } from '@/types/region';
 import { type StockIndexTableForm } from '@/types/stockIndexTableForm';
@@ -47,7 +47,7 @@ onMounted(() => {
     label: '所有国家/地区',
     value: '',
   });
-  getAllRegions()
+  getAllRegion()
     .then(res => {
       res.data.regions.forEach((region: Region, _: number) => {
         regionOptions.value.push({
@@ -92,14 +92,13 @@ const onPageChange = (current: number) => {
 
 const fetchPageData = (searchData: StockIndexTableForm, current: number) => {
   loading.value = true;
-  getStockIndexTable(
+  getStockIndexTableData(
     searchData,
     current,
     pagination.value.pageSize
   ).then(res => {
     tableData.value = [];
     let stockIndexTableDataResponse = res.data as StockIndexTableDataResponse;
-    console.log(stockIndexTableDataResponse);
     stockIndexTableDataResponse.stockIndexTags.forEach((stockIndexTag) => {
       tableData.value.push({
         code: stockIndexTag.code,
@@ -140,7 +139,7 @@ const reset = () => {
                   <a-input v-model="stockIndexTableFormData.code" :placeholder="''" />
                 </a-form-item>
               </a-col>
-              <a-col :span="7">
+              <a-col :span="10">
                 <a-form-item :label="'交易平台'">
                   <a-input v-model="stockIndexTableFormData.platform" :placeholder="''" />
                 </a-form-item>
@@ -153,13 +152,13 @@ const reset = () => {
             </a-row>
 
             <a-row :gutter="14">
-              <a-col :span="10">
+              <a-col :span="12">
                 <a-form-item :label="'交易国家/地区'">
                   <a-select v-model="stockIndexTableFormData.region" :options="regionOptions" :placeholder="''" />
                 </a-form-item>
               </a-col>
 
-              <a-col :span="10">
+              <a-col :span="12">
                 <a-form-item :label="'股票指数名称'">
                   <a-input v-model="stockIndexTableFormData.name" />
                 </a-form-item>

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { getAllCurrencies, getAllMarketRegions, getAllRegions, getStockTable } from '@/apis/stock';
+import { getAllCurrency, getAllMarketRegion, getAllRegion, getStockTableData } from '@/apis/stock';
 import type { Currency } from '@/types/currency';
 import type { Region } from '@/types/region';
 import type { StockTableForm } from '@/types/stockTableForm';
@@ -52,7 +52,7 @@ onMounted(() => {
     label: '所有货币',
     value: ''
   });
-  getAllCurrencies()
+  getAllCurrency()
     .then(res => {
       res.data.currencies.forEach((currency: Currency, _: number) => {
         currencyOptions.value.push({
@@ -69,7 +69,7 @@ onMounted(() => {
     label: '所有国家/地区',
     value: '',
   });
-  getAllRegions()
+  getAllRegion()
     .then(res => {
       res.data.regions.forEach((region: Region, _: number) => {
         regionOptions.value.push({
@@ -86,7 +86,7 @@ onMounted(() => {
     label: '所有国家/地区',
     value: '',
   });
-  getAllMarketRegions()
+  getAllMarketRegion()
     .then(res => {
       res.data.regions.forEach((marketRegion: Region, _: number) => {
         marketRegionsOptions.value.push({
@@ -113,7 +113,7 @@ const onPageChange = (current: number) => {
 
 const fetchPageData = (searchData: StockTableForm, current: number) => {
   loading.value = true;
-  getStockTable(searchData,
+  getStockTableData(searchData,
     current,
     pagination.value.pageSize
   ).then(res => {
