@@ -1,16 +1,17 @@
 <script lang="ts" setup>
+import { goto } from '@/utils/routerUtils';
 import { IconApps } from '@arco-design/web-vue/es/icon';
 </script>
 
 <template>
   <div class="tab-bar-container">
-    <a-menu :style="{ width: '200px', height: '100vh' }" :default-open-keys="['0']" :default-selected-keys="['0_1']"
+    <a-menu :style="{ width: '200px', height: '100vh' }" :default-open-keys="['0']" :default-selected-keys="['0_0']"
       show-collapse-button>
       <a-sub-menu key="0">
         <template #icon><icon-apps /></template>
         <template #title>股票</template>
-        <a-menu-item key="0_0">股票数据</a-menu-item>
-        <a-menu-item key="0_1">股票指数</a-menu-item>
+        <a-menu-item key="0_0" @click="() => { goto({ name: 'stock' }); }">股票数据</a-menu-item>
+        <a-menu-item key="0_1" @click="() => { goto({ name: 'stockIndex' }) }">股票指数</a-menu-item>
       </a-sub-menu>
       <a-menu-item key="1_0"><icon-apps />比特币</a-menu-item>
       <a-sub-menu key="2">
