@@ -13,7 +13,7 @@ import { IconApps } from '@arco-design/web-vue/es/icon';
         <a-menu-item key="0_0" @click="() => { goto({ name: 'stock' }); }">股票数据</a-menu-item>
         <a-menu-item key="0_1" @click="() => { goto({ name: 'stockIndex' }) }">股票指数</a-menu-item>
       </a-sub-menu>
-      <a-menu-item key="1_0"><icon-apps />比特币</a-menu-item>
+      <a-menu-item key="1_0" @click="() => { goto({ name: 'bitCoin' }); }"><icon-apps />比特币</a-menu-item>
       <a-sub-menu key="2">
         <template #icon><icon-apps /></template>
         <template #title>国际经济</template>
