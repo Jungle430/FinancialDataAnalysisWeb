@@ -8,6 +8,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     BitCoinTable: typeof import('./src/components/BitCoinTable.vue')['default']
+    CommoditiesTable: typeof import('./src/components/CommoditiesTable.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElForm: typeof import('element-plus/es')['ElForm']
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
