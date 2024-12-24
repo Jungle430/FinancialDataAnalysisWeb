@@ -17,7 +17,7 @@ import { IconApps } from '@arco-design/web-vue/es/icon';
       <a-sub-menu key="2">
         <template #icon><icon-apps /></template>
         <template #title>国际经济</template>
-        <a-menu-item key="2_0">外汇</a-menu-item>
+        <a-menu-item key="2_0" @click="() => { goto({ name: 'forex' }); }">外汇</a-menu-item>
         <a-menu-item key="2_1">离岸人民币</a-menu-item>
         <a-menu-item key="2_2" @click="() => { goto({ name: 'bonds' }); }">美国国债</a-menu-item>
       </a-sub-menu>
