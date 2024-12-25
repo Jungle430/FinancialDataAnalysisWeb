@@ -7,6 +7,7 @@ import BitCoinTable from '@/components/BitCoinTable.vue';
 import CommoditiesTable from '@/components/CommoditiesTable.vue';
 import BondsTable from '@/components/BondsTable.vue';
 import ForexTable from '@/components/ForexTable.vue';
+import OffshoreRMB from '@/components/OffshoreRMB.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -45,6 +46,11 @@ const router = createRouter({
           path: '/forex',
           name: 'forex',
           component: ForexTable
+        },
+        {
+          path: '/offshoreRMB',
+          name: 'offshoreRMB',
+          component: OffshoreRMB
         }
       ]
     },
