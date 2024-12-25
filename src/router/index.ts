@@ -18,6 +18,10 @@ const router = createRouter({
       component: Home,
       children: [
         {
+          path: "/",
+          redirect: '/stock'
+        },
+        {
           path: "/stock",
           name: "stock",
           component: StockTable
