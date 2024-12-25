@@ -8,6 +8,7 @@ import { reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import Owl from "@/views/Login/components/Owl.vue"
 import { useFocus } from '@/views/Login/composables/useFocus';
+import { goto } from '@/utils/routerUtils';
 
 const router = useRouter();
 const tokenStore = TokenStore();
@@ -42,7 +43,7 @@ const handleLogin = () => {
   login(loginFormData.phone, loginFormData.password)
     .then(res => {
       tokenStore.setToken(res.data.token);
-      router.push("/")
+      goto({ name: 'stock' })
     })
     .catch(err => {
       console.error(err);
