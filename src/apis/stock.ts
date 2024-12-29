@@ -29,3 +29,10 @@ export function getStockTableData(stockTableRequest: StockTableForm, current: nu
     data: stockTableRequest
   })
 }
+
+export function getStockEchartsData(code: string) {
+  return service.request({
+    url: `/stock/echarts/${code}`,
+    method: 'get'
+  })
+}

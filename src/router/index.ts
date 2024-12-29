@@ -8,6 +8,7 @@ import CommoditiesTable from '@/components/CommoditiesTable.vue';
 import BondsTable from '@/components/BondsTable.vue';
 import ForexTable from '@/components/ForexTable.vue';
 import OffshoreRMB from '@/components/OffshoreRMB.vue';
+import StockEcharts from '@/components/StockEcharts.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -55,7 +56,14 @@ const router = createRouter({
           path: '/offshoreRMB',
           name: 'offshoreRMB',
           component: OffshoreRMB
-        }
+        },
+
+        {
+          path: '/echarts/:code',
+          name: 'echarts',
+          component: StockEcharts,
+          props: true
+        },
       ]
     },
     {

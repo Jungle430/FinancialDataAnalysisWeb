@@ -20,6 +20,7 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SideBar: typeof import('./src/components/SideBar.vue')['default']
+    StockEcharts: typeof import('./src/components/StockEcharts.vue')['default']
     StockIndexTable: typeof import('./src/components/StockIndexTable.vue')['default']
     StockTable: typeof import('./src/components/StockTable.vue')['default']
     TopBar: typeof import('./src/components/TopBar.vue')['default']

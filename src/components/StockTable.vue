@@ -8,6 +8,7 @@ import { onMounted, ref } from 'vue';
 import { IconSearch, IconRefresh } from '@arco-design/web-vue/es/icon';
 import type { Pagination } from '@/types/page';
 import type { StockTableDataResponse } from '@/types/stockTableDataResponse';
+import { goto } from '@/utils/routerUtils';
 
 const tableColumns = ref<TableColumnData[]>([
   {
@@ -33,6 +34,10 @@ const tableColumns = ref<TableColumnData[]>([
   {
     title: '交易国家/地区',
     dataIndex: 'marketRegion',
+  },
+  {
+    title: '详情',
+    slotName: 'detail'
   }
 ]);
 
@@ -220,6 +225,9 @@ const reset = () => {
       </a-row>
       <a-table :loading="loading" :data="tableData" :columns="tableColumns" :pagination="pagination"
         @page-change="onPageChange">
+        <template #detail="{ record }">
+          <a-button @click="() => { goto({ name: 'echarts', params: { code: record.code } }); }">详情</a-button>
+        </template>
       </a-table>
     </a-card>
   </div>
