@@ -22,3 +22,10 @@ export function getCommoditiesTableData(commoditiesTableRequest: CommoditiesTabl
     data: commoditiesTableRequest,
   });
 }
+
+export function getCommoditiesEchartsData(code: string) {
+  return service.request({
+    url: `/commodities/echarts/${code}`,
+    method: 'get',
+  });
+}

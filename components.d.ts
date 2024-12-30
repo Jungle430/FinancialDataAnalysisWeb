@@ -10,6 +10,7 @@ declare module 'vue' {
     BitCoinEcharts: typeof import('./src/components/BitCoinEcharts.vue')['default']
     BitCoinTable: typeof import('./src/components/BitCoinTable.vue')['default']
     BondsTable: typeof import('./src/components/BondsTable.vue')['default']
+    CommoditiesEcharts: typeof import('./src/components/CommoditiesEcharts.vue')['default']
     CommoditiesTable: typeof import('./src/components/CommoditiesTable.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElForm: typeof import('element-plus/es')['ElForm']

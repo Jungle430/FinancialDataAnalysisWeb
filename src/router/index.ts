@@ -13,6 +13,7 @@ import BitCoinEcharts from '@/components/BitCoinEcharts.vue';
 import ForexEcharts from '@/components/ForexEcharts.vue';
 import OffshoreRMBTable from '@/components/OffshoreRMBTable.vue';
 import OffshoreRMBEcharts from '@/components/OffshoreRMBEcharts.vue';
+import CommoditiesEcharts from '@/components/CommoditiesEcharts.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -98,6 +99,12 @@ const router = createRouter({
               path: 'offshoreRMB/:baseCurrency/:quoteCurrency',
               name: 'offshoreRMBecharts',
               component: OffshoreRMBEcharts,
+              props: true,
+            },
+            {
+              path: 'commodities/:code',
+              name: 'commoditiesEcharts',
+              component: CommoditiesEcharts,
               props: true,
             }
           ]
