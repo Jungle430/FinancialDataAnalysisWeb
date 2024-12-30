@@ -22,3 +22,11 @@ export function getBondsTableData(bondsTableRequest: BondsTableForm, current: nu
     data: bondsTableRequest,
   });
 }
+
+export function getBondsEchartsData(code: string) {
+  return service.request({
+    url: `/bonds/echarts/${code}`,
+    method: 'get',
+  })
+}
+

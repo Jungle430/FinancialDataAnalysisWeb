@@ -8,6 +8,7 @@ import type { Region } from '@/types/region';
 import { type SelectOptionData, type TableColumnData } from '@arco-design/web-vue';
 import { onMounted, ref } from 'vue';
 import { IconSearch, IconRefresh } from '@arco-design/web-vue/es/icon';
+import { goto } from '@/utils/routerUtils';
 
 
 const tableColumns = ref<TableColumnData[]>([
@@ -30,6 +31,10 @@ const tableColumns = ref<TableColumnData[]>([
   {
     title: '美国国债名称',
     dataIndex: 'name',
+  },
+  {
+    title: '详情',
+    slotName: 'detail'
   }
 ]);
 
@@ -192,6 +197,9 @@ const reset = () => {
       </a-row>
       <a-table :loading="loading" :data="tableData" :columns="tableColumns" :pagination="pagination"
         @page-change="onPageChange">
+        <template #detail="{ record }">
+          <a-button @click="() => { goto({ name: 'bondsEcharts', params: { code: record.code } }); }">详情</a-button>
+        </template>
       </a-table>
     </a-card>
   </div>

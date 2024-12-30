@@ -14,6 +14,7 @@ import ForexEcharts from '@/components/ForexEcharts.vue';
 import OffshoreRMBTable from '@/components/OffshoreRMBTable.vue';
 import OffshoreRMBEcharts from '@/components/OffshoreRMBEcharts.vue';
 import CommoditiesEcharts from '@/components/CommoditiesEcharts.vue';
+import BondsEchats from '@/components/BondsEchats.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -105,6 +106,12 @@ const router = createRouter({
               path: 'commodities/:code',
               name: 'commoditiesEcharts',
               component: CommoditiesEcharts,
+              props: true,
+            },
+            {
+              path: 'bonds/:code',
+              name: 'bondsEcharts',
+              component: BondsEchats,
               props: true,
             }
           ]
