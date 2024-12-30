@@ -19,6 +19,8 @@ declare module 'vue' {
     ForexEcharts: typeof import('./src/components/ForexEcharts.vue')['default']
     ForexTable: typeof import('./src/components/ForexTable.vue')['default']
     OffshoreRMB: typeof import('./src/components/OffshoreRMB.vue')['default']
+    OffshoreRMBEcharts: typeof import('./src/components/OffshoreRMBEcharts.vue')['default']
+    OffshoreRMBTable: typeof import('./src/components/OffshoreRMBTable.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SideBar: typeof import('./src/components/SideBar.vue')['default']

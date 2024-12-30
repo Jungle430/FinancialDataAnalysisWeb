@@ -36,3 +36,10 @@ export function getOffshoreRMBTableData(offshoreRMBTableRequest: ForexTableForm,
     data: offshoreRMBTableRequest,
   });
 }
+
+export function getOffshoreRMBEchartsData(baseCurrency: string, quoteCurrency: string) {
+  return service.request({
+    url: `/offshoreRMB/echarts/${baseCurrency}/${quoteCurrency}`,
+    method: 'get'
+  });
+}
