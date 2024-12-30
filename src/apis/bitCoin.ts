@@ -22,3 +22,10 @@ export function getBitCoinTableData(bitCoinTableRequest: BitCoinTableForm, curre
     data: bitCoinTableRequest,
   });
 }
+
+export function getBitCoinEchartsData(code: string) {
+  return service.request({
+    url: `/bitCoin/echarts/${code}`,
+    method: 'get',
+  });
+}

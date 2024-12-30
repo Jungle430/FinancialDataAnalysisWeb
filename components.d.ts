@@ -7,6 +7,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    BitCoinEcharts: typeof import('./src/components/BitCoinEcharts.vue')['default']
     BitCoinTable: typeof import('./src/components/BitCoinTable.vue')['default']
     BondsTable: typeof import('./src/components/BondsTable.vue')['default']
     CommoditiesTable: typeof import('./src/components/CommoditiesTable.vue')['default']

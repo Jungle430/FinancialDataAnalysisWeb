@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { getStockEchartsData } from '@/apis/stock';
-import { type StockEchartsResponse } from '@/types/stockEchartsResponse';
 import { onMounted, ref } from 'vue';
 import 'echarts';
 import VChart from "vue-echarts";
+import { getBitCoinEchartsData } from '@/apis/bitCoin';
+import type { BitCoinEchartsReponse } from '@/types/bitCoinEchartsReponse';
 
 const upColor = '#ec0000';
 const upBorderColor = '#8A0000';
@@ -182,21 +182,19 @@ const option = ref({
   ]
 });
 onMounted(() => {
-  getStockEchartsData(props.code)
+  getBitCoinEchartsData(props.code)
     .then(res => {
-      let stockEchartsResponse = res.data as StockEchartsResponse;
-      option.value.title.text = `${stockEchartsResponse.tags.code}` +
-        `-${stockEchartsResponse.tags.name}` +
-        `-${stockEchartsResponse.tags.platform}` +
-        `-${stockEchartsResponse.tags.region.simplifiedChineseName}(${stockEchartsResponse.tags.region.englishName})` +
-        `-${stockEchartsResponse.tags.marketRegion.simplifiedChineseName}(${stockEchartsResponse.tags.marketRegion.englishName})` +
-        `-${stockEchartsResponse.tags.currency.simplifiedChineseName}(${stockEchartsResponse.tags.currency.englishName})`;
-      option.value.xAxis.data = stockEchartsResponse.stocks.map(stock => stock.ts);
-      option.value.series[0].data = stockEchartsResponse.stocks.map(stock => [stock.openingPrice, stock.closingPrice, stock.lowestPrice, stock.highestPrice]);
-      option.value.series[1].data = stockEchartsResponse.MA5;
-      option.value.series[2].data = stockEchartsResponse.MA10;
-      option.value.series[3].data = stockEchartsResponse.MA20;
-      option.value.series[4].data = stockEchartsResponse.MA30;
+      let bitCoinEchartsResponse = res.data as BitCoinEchartsReponse;
+      option.value.title.text = `${bitCoinEchartsResponse.tags.code}` +
+        `-${bitCoinEchartsResponse.tags.platform}` +
+        `-${bitCoinEchartsResponse.tags.region.simplifiedChineseName}(${bitCoinEchartsResponse.tags.region.englishName})` +
+        `-${bitCoinEchartsResponse.tags.currency.simplifiedChineseName}(${bitCoinEchartsResponse.tags.currency.englishName})`;
+      option.value.xAxis.data = bitCoinEchartsResponse.bitCoins.map(bitCoin => bitCoin.ts);
+      option.value.series[0].data = bitCoinEchartsResponse.bitCoins.map(bitCoin => [bitCoin.openingPrice, bitCoin.closingPrice, bitCoin.lowestPrice, bitCoin.highestPrice]);
+      option.value.series[1].data = bitCoinEchartsResponse.MA5;
+      option.value.series[2].data = bitCoinEchartsResponse.MA10;
+      option.value.series[3].data = bitCoinEchartsResponse.MA20;
+      option.value.series[4].data = bitCoinEchartsResponse.MA30;
     });
 });
 </script>
@@ -218,3 +216,4 @@ onMounted(() => {
   padding: 0 20px 20px 0px;
 }
 </style>
+
