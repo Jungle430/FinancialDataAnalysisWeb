@@ -9,6 +9,7 @@ import BondsTable from '@/components/BondsTable.vue';
 import ForexTable from '@/components/ForexTable.vue';
 import OffshoreRMB from '@/components/OffshoreRMB.vue';
 import StockEcharts from '@/components/StockEcharts.vue';
+import StockIndexEcharts from '@/components/StockIndexEcharts.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,52 +21,69 @@ const router = createRouter({
       children: [
         {
           path: "/",
-          redirect: '/stock'
+          redirect: { name: 'stock' }
         },
         {
-          path: "/stock",
+          path: "stock",
           name: "stock",
           component: StockTable
         },
         {
-          path: '/stockIndex',
+          path: 'stockIndex',
           name: 'stockIndex',
           component: StockIndexTable
         },
         {
-          path: '/bitCoin',
+          path: 'bitCoin',
           name: 'bitCoin',
           component: BitCoinTable
         },
         {
-          path: '/commodities',
+          path: 'commodities',
           name: 'commodities',
           component: CommoditiesTable
         },
         {
-          path: '/bonds',
+          path: 'bonds',
           name: 'bonds',
           component: BondsTable
         },
         {
-          path: '/forex',
+          path: 'forex',
           name: 'forex',
           component: ForexTable
         },
         {
-          path: '/offshoreRMB',
+          path: 'offshoreRMB',
           name: 'offshoreRMB',
           component: OffshoreRMB
         },
 
         {
-          path: '/echarts/:code',
+          path: '/echarts',
           name: 'echarts',
-          component: StockEcharts,
-          props: true
+          children: [
+            {
+              path: '/echarts',
+              redirect: { name: 'stockEcharts', params: { code: "002594" } } // default: 比亚迪
+            },
+            {
+              path: 'stock/:code',
+              name: 'stockEcharts',
+              component: StockEcharts,
+              props: true
+            },
+            {
+              path: 'stockIndex/:code',
+              name: 'stockIndexEcharts',
+              component: StockIndexEcharts,
+              props: true,
+            }
+          ]
         },
       ]
     },
+
     {
       path: "/login",
       name: 'login',

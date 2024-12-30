@@ -226,7 +226,7 @@ const reset = () => {
       <a-table :loading="loading" :data="tableData" :columns="tableColumns" :pagination="pagination"
         @page-change="onPageChange">
         <template #detail="{ record }">
-          <a-button @click="() => { goto({ name: 'echarts', params: { code: record.code } }); }">详情</a-button>
+          <a-button @click="() => { goto({ name: 'stockEcharts', params: { code: record.code } }); }">详情</a-button>
         </template>
       </a-table>
     </a-card>

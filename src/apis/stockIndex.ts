@@ -24,3 +24,10 @@ export function getStockIndexTableData(stockIndexTableRequest: StockIndexTableFo
     data: stockIndexTableRequest
   });
 }
+
+export function getStockIndexEchartsData(code: string) {
+  return service.request({
+    url: `/stockIndex/echarts/${code}`,
+    method: 'get'
+  })
+}
