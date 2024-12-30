@@ -16,6 +16,7 @@ declare module 'vue' {
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
     ElInput: typeof import('element-plus/es')['ElInput']
     Footer: typeof import('./src/components/Footer.vue')['default']
+    ForexEcharts: typeof import('./src/components/ForexEcharts.vue')['default']
     ForexTable: typeof import('./src/components/ForexTable.vue')['default']
     OffshoreRMB: typeof import('./src/components/OffshoreRMB.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

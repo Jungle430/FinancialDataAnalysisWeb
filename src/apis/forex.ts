@@ -36,3 +36,10 @@ export function getForexTableData(forexTableRequest: ForexTableForm, current: nu
     data: forexTableRequest,
   });
 }
+
+export function getForexEchartsData(baseCurrency: string, quoteCurrency: string) {
+  return service.request({
+    url: `/forex/echarts/${baseCurrency}/${quoteCurrency}`,
+    method: 'get'
+  });
+}

@@ -8,6 +8,7 @@ import type { Region } from '@/types/region';
 import type { SelectOptionData, TableColumnData } from '@arco-design/web-vue';
 import { onMounted, ref } from 'vue';
 import { IconSearch, IconRefresh } from '@arco-design/web-vue/es/icon';
+import { goto } from '@/utils/routerUtils';
 
 const tableColumns = ref<TableColumnData[]>([
   {
@@ -26,6 +27,10 @@ const tableColumns = ref<TableColumnData[]>([
     title: '报价货币名称',
     dataIndex: 'quoteCurrency',
   },
+  {
+    title: '详情',
+    slotName: 'detail'
+  }
 ]);
 
 const loading = ref(false);
@@ -134,6 +139,8 @@ const fetchPageData = (searchData: ForexTableForm, current: number) => {
         baseCurrency: `${forexTag.baseCurrency.simplifiedChineseName}(${forexTag.baseCurrency.englishName})`,
         quoteRegion: `${forexTag.quoteRegion.simplifiedChineseName}(${forexTag.quoteRegion.englishName})`,
         quoteCurrency: `${forexTag.quoteCurrency.simplifiedChineseName}(${forexTag.quoteCurrency.englishName})`,
+        baseCurrencyCode: forexTag.baseCurrency.currencyCode,
+        quoteCurrencyCode: forexTag.quoteCurrency.currencyCode,
       });
     });
     pagination.value.current = current;
@@ -161,7 +168,7 @@ const reset = () => {
 
 <template>
   <div class="container">
-    <a-card :title="'比特币数据'">
+    <a-card :title="'外汇数据'">
       <a-row>
         <a-col :flex="1">
           <a-form :model="forexTableFormData" :label-col-props="{ span: 6 }" :wrapper-col-props="{ span: 18 }"
@@ -215,6 +222,17 @@ const reset = () => {
       </a-row>
       <a-table :loading="loading" :data="tableData" :columns="tableColumns" :pagination="pagination"
         @page-change="onPageChange">
+        <template #detail="{ record }">
+          <a-button @click="() => {
+            goto({
+              name: 'forexEcharts',
+              params: {
+                baseCurrency: record.baseCurrencyCode,
+                quoteCurrency: record.quoteCurrencyCode
+              }
+            });
+          }">详情</a-button>
+        </template>
       </a-table>
     </a-card>
   </div>

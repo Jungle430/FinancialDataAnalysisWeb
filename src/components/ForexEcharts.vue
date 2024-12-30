@@ -2,8 +2,8 @@
 import { onMounted, ref } from 'vue';
 import 'echarts';
 import VChart from "vue-echarts";
-import { getBitCoinEchartsData } from '@/apis/bitCoin';
-import type { BitCoinEchartsReponse } from '@/types/bitCoinEchartsResponse';
+import { getForexEchartsData } from '@/apis/forex';
+import type { ForexEchartsResponse } from '@/types/forexEchartsResponse';
 
 const upColor = '#ec0000';
 const upBorderColor = '#8A0000';
@@ -11,7 +11,11 @@ const downColor = '#00da3c';
 const downBorderColor = '#008F28';
 
 const props = defineProps({
-  code: {
+  baseCurrency: {
+    type: String,
+    required: true
+  },
+  quoteCurrency: {
     type: String,
     required: true
   }
@@ -182,19 +186,19 @@ const option = ref({
   ]
 });
 onMounted(() => {
-  getBitCoinEchartsData(props.code)
+  getForexEchartsData(props.baseCurrency, props.quoteCurrency)
     .then(res => {
-      let bitCoinEchartsResponse = res.data as BitCoinEchartsReponse;
-      option.value.title.text = `${bitCoinEchartsResponse.tags.code}` +
-        `-${bitCoinEchartsResponse.tags.platform}` +
-        `-${bitCoinEchartsResponse.tags.region.simplifiedChineseName}(${bitCoinEchartsResponse.tags.region.englishName})` +
-        `-${bitCoinEchartsResponse.tags.currency.simplifiedChineseName}(${bitCoinEchartsResponse.tags.currency.englishName})`;
-      option.value.xAxis.data = bitCoinEchartsResponse.bitCoins.map(bitCoin => bitCoin.ts);
-      option.value.series[0].data = bitCoinEchartsResponse.bitCoins.map(bitCoin => [bitCoin.openingPrice, bitCoin.closingPrice, bitCoin.lowestPrice, bitCoin.highestPrice]);
-      option.value.series[1].data = bitCoinEchartsResponse.MA5;
-      option.value.series[2].data = bitCoinEchartsResponse.MA10;
-      option.value.series[3].data = bitCoinEchartsResponse.MA20;
-      option.value.series[4].data = bitCoinEchartsResponse.MA30;
+      let forexEchartsResponse = res.data as ForexEchartsResponse;
+      option.value.title.text = `${forexEchartsResponse.tags.baseCurrency.simplifiedChineseName}(${forexEchartsResponse.tags.baseCurrency.englishName})` +
+        `-${forexEchartsResponse.tags.baseRegion.simplifiedChineseName}(${forexEchartsResponse.tags.baseRegion.englishName})` +
+        `-${forexEchartsResponse.tags.quoteCurrency.simplifiedChineseName}(${forexEchartsResponse.tags.quoteCurrency.englishName})` +
+        `-${forexEchartsResponse.tags.quoteRegion.simplifiedChineseName}(${forexEchartsResponse.tags.quoteRegion.englishName})`;
+      option.value.xAxis.data = forexEchartsResponse.forexes.map(forex => forex.ts);
+      option.value.series[0].data = forexEchartsResponse.forexes.map(forex => [forex.openingPrice, forex.closingPrice, forex.lowestPrice, forex.highestPrice]);
+      option.value.series[1].data = forexEchartsResponse.MA5;
+      option.value.series[2].data = forexEchartsResponse.MA10;
+      option.value.series[3].data = forexEchartsResponse.MA20;
+      option.value.series[4].data = forexEchartsResponse.MA30;
     });
 });
 </script>
@@ -216,4 +220,3 @@ onMounted(() => {
   padding: 0 20px 20px 0px;
 }
 </style>
-
