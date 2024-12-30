@@ -139,7 +139,7 @@ const reset = () => {
 
 <template>
   <div class="container">
-    <a-card :title="'股票数据'">
+    <a-card :title="'大宗商品数据'">
       <a-row>
         <a-col :flex="1">
           <a-form :model="commoditiesTableFormData" :label-col-props="{ span: 6 }" :wrapper-col-props="{ span: 18 }"
@@ -198,7 +198,8 @@ const reset = () => {
       <a-table :loading="loading" :data="tableData" :columns="tableColumns" :pagination="pagination"
         @page-change="onPageChange">
         <template #detail="{ record }">
-          <a-button @click="() => { goto({ name: 'commoditiesEcharts', params: { code: record.code } }); }">详情</a-button>
+          <a-button
+            @click="() => { goto({ name: 'commoditiesEcharts', params: { code: record.code } }); }">详情</a-button>
         </template>
       </a-table>
     </a-card>

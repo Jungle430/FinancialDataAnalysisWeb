@@ -140,7 +140,7 @@ const reset = () => {
 
 <template>
   <div class="container">
-    <a-card :title="'比特币数据'">
+    <a-card :title="'债券数据'">
       <a-row>
         <a-col :flex="1">
           <a-form :model="bondsTableFormData" :label-col-props="{ span: 6 }" :wrapper-col-props="{ span: 18 }"
