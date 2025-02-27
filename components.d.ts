@@ -7,6 +7,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AnalysisTwoFinancialData: typeof import('./src/components/AnalysisTwoFinancialData.vue')['default']
     BitCoinEcharts: typeof import('./src/components/BitCoinEcharts.vue')['default']
     BitCoinTable: typeof import('./src/components/BitCoinTable.vue')['default']
     BondsEchats: typeof import('./src/components/BondsEchats.vue')['default']
@@ -20,11 +21,11 @@ declare module 'vue' {
     Footer: typeof import('./src/components/Footer.vue')['default']
     ForexEcharts: typeof import('./src/components/ForexEcharts.vue')['default']
     ForexTable: typeof import('./src/components/ForexTable.vue')['default']
-    OffshoreRMB: typeof import('./src/components/OffshoreRMB.vue')['default']
     OffshoreRMBEcharts: typeof import('./src/components/OffshoreRMBEcharts.vue')['default']
     OffshoreRMBTable: typeof import('./src/components/OffshoreRMBTable.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SelectAnalysisFinancialData: typeof import('./src/components/SelectAnalysisFinancialData.vue')['default']
     SideBar: typeof import('./src/components/SideBar.vue')['default']
     StockEcharts: typeof import('./src/components/StockEcharts.vue')['default']
     StockIndexEcharts: typeof import('./src/components/StockIndexEcharts.vue')['default']
