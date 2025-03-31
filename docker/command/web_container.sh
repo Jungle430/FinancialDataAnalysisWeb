@@ -1,0 +1,1 @@
+docker container run -d -p 80:80 financial_data_analysis_web:latest
