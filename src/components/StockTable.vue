@@ -2,7 +2,7 @@
 import { getAllCurrency, getAllMarketRegion, getAllRegion, getStockTableData } from '@/apis/stock';
 import type { Currency } from '@/types/currency';
 import type { Region } from '@/types/region';
-import type { StockTableForm } from '@/types/stockTableForm;
+import type { StockTableForm } from '@/types/stockTableForm';
 import { type TableColumnData, type SelectOptionData } from '@arco-design/web-vue';
 import { onMounted, ref } from 'vue';
 import { IconSearch, IconRefresh } from '@arco-design/web-vue/es/icon';
