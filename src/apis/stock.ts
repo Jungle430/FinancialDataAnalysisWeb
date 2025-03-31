@@ -1,4 +1,4 @@
-import type { StockTableForm } from "@/types/stockTableForm";
+import type { StockTableForm } from "@/types/StockTableForm;
 import service from "@/utils/request";
 
 export function getAllRegion() {
