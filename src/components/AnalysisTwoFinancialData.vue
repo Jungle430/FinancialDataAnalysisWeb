@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { getAnalysisFinancialData } from '@/apis/financialDataAnalysis';
+import { getAnalysisTwoFinancialBranchData } from '@/apis/financialDataAnalysis';
 import SelectAnalysisFinancialData from '@/components/SelectAnalysisFinancialData.vue';
 import { message } from 'ant-design-vue';
 import { ref } from 'vue';
@@ -47,7 +47,7 @@ const analysis = () => {
   option.value.animationDuration = duration;
   option.value.animationDurationUpdate = duration;
 
-  getAnalysisFinancialData({
+  getAnalysisTwoFinancialBranchData({
     kindX: kindX.value,
     codeX: branchX.value,
     kindY: kindY.value,

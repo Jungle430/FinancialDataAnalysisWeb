@@ -22,8 +22,14 @@ import { IconApps } from '@arco-design/web-vue/es/icon';
         <a-menu-item key="2_2" @click="() => { goto({ name: 'bonds' }); }">美国国债</a-menu-item>
       </a-sub-menu>
       <a-menu-item key="3_0" @click="() => { goto({ name: 'commodities' }); }"><icon-apps />大宗商品</a-menu-item>
-      <a-menu-item key="4_0"
-        @click="() => { goto({ name: 'analysisTwoFinancialData' }) }"><icon-apps />金融数据分析</a-menu-item>
+      <a-sub-menu key="4">
+        <template #icon><icon-apps /></template>
+        <template #title>金融数据分析</template>
+        <a-menu-item key="4_0"
+          @click="() => { goto({ name: 'analysisTwoFinancialData' }) }"><icon-apps />金融数据相关性分析</a-menu-item>
+        <a-menu-item key="4_1"
+          @click="() => { goto({ name: 'analysisFinancialDataKinds' }) }"><icon-apps />金融数据种类相关性排行</a-menu-item>
+      </a-sub-menu>
     </a-menu>
   </div>
 </template>

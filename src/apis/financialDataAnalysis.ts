@@ -15,11 +15,18 @@ export function getFinancialBranch(kind: string) {
   });
 }
 
-export function getAnalysisFinancialData(analysisTwoFinancialDataRequest: AnalysisTwoFinancialDataRequest) {
+export function getAnalysisTwoFinancialBranchData(analysisTwoFinancialDataRequest: AnalysisTwoFinancialDataRequest) {
   return service.request({
-    url: `/financialDataAnalysis/analysisTwoFinancialData`,
+    url: `/financialDataAnalysis/analysisTwoFinancialDataBranch`,
     method: 'post',
     data: analysisTwoFinancialDataRequest
+  });
+}
+
+export function getAnalysisFinancialDataKinds() {
+  return service.request({
+    url: '/financialDataAnalysis/analysisFinancialDataKinds',
+    method: 'get'
   });
 }
 
