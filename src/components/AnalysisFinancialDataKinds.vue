@@ -23,6 +23,12 @@ onMounted(() => {
 });
 
 const option = ref({
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'shadow'
+        }
+    },
     grid: {
         left: '30%',
         height: '60%',
