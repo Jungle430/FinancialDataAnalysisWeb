@@ -4,5 +4,6 @@ COPY . .
 RUN npm install && npm run build
 
 FROM nginx:1.27.4-alpine
+ENV TZ=Asia/Shanghai
 COPY docker/conf/nginx.conf /etc/nginx/nginx.conf
 COPY --from=node_builder /app/dist /usr/share/nginx/html
