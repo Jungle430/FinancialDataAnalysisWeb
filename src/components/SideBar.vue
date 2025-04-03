@@ -25,10 +25,9 @@ import { IconApps } from '@arco-design/web-vue/es/icon';
       <a-sub-menu key="4">
         <template #icon><icon-apps /></template>
         <template #title>金融数据分析</template>
-        <a-menu-item key="4_0"
-          @click="() => { goto({ name: 'analysisTwoFinancialData' }) }">金融数据相关性</a-menu-item>
-        <a-menu-item key="4_1"
-          @click="() => { goto({ name: 'analysisFinancialDataKinds' }) }">金融数据种类相关性</a-menu-item>
+        <a-menu-item key="4_0" @click="() => { goto({ name: 'analysisTwoFinancialData' }) }">金融数据相关性</a-menu-item>
+        <a-menu-item key="4_1" @click="() => { goto({ name: 'analysisFinancialDataKinds' }) }">金融数据种类相关性</a-menu-item>
+        <a-menu-item key="4_2" @click="() => { goto({ name: 'analysisRegionAndMarket' }) }">市场与区域相关性</a-menu-item>
       </a-sub-menu>
     </a-menu>
   </div>

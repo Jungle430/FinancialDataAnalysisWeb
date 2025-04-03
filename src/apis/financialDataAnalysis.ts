@@ -30,3 +30,9 @@ export function getAnalysisFinancialDataKinds() {
   });
 }
 
+export function analysisRegionAndMarket() {
+  return service.request({
+    url: '/financialDataAnalysis/analysisRegionAndMarket',
+    method: 'get'
+  });
+}

@@ -8,6 +8,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AnalysisFinancialDataKinds: typeof import('./src/components/AnalysisFinancialDataKinds.vue')['default']
+    AnalysisRegionAndMarket: typeof import('./src/components/AnalysisRegionAndMarket.vue')['default']
     AnalysisTwoFinancialData: typeof import('./src/components/AnalysisTwoFinancialData.vue')['default']
     BitCoinEcharts: typeof import('./src/components/BitCoinEcharts.vue')['default']
     BitCoinTable: typeof import('./src/components/BitCoinTable.vue')['default']
