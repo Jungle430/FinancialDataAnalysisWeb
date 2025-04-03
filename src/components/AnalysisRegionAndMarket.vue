@@ -13,8 +13,9 @@ onMounted(() => {
         let stockIndexRiseAndFallResponses = res.data as Array<StockIndexRiseAndFallResponse>;
         stockIndexMsg.value = stockIndexRiseAndFallResponses
             .map(stockIndexRiseAndFallResponse => {
-                return stockIndexRiseAndFallResponse.stockIndexX.name + "-"
-                    + stockIndexRiseAndFallResponse.stockIndexY.name;
+                return `${stockIndexRiseAndFallResponse.stockIndexX.code}-${stockIndexRiseAndFallResponse.stockIndexX.name}`
+                    + "|"
+                    + `${stockIndexRiseAndFallResponse.stockIndexY.code}-${stockIndexRiseAndFallResponse.stockIndexY.name}`;
             });
         stockIndexRiseAndFallPearsonCorrelationCoefficient.value = stockIndexRiseAndFallResponses
             .map(stockIndexRiseAndFallResponse => {
@@ -24,6 +25,11 @@ onMounted(() => {
 });
 
 const option = ref({
+    title: {
+        text: '市场与区域相关性排行榜',
+        left: 'center',
+        top: '3%'
+    },
     tooltip: {
         trigger: 'axis',
         axisPointer: {
@@ -31,13 +37,16 @@ const option = ref({
         }
     },
     grid: {
-        left: '30%',
-        height: '60%',
-        top: '10%'
+        left: '15%',
+        height: '80%',
+        top: '15%'
     },
     yAxis: {
         type: 'category',
         data: stockIndexMsg,
+        axisLabel: {
+            show: false
+        }
     },
     xAxis: {
         type: 'value'
@@ -45,9 +54,33 @@ const option = ref({
     series: [
         {
             data: stockIndexRiseAndFallPearsonCorrelationCoefficient,
-            type: 'bar'
+            type: 'bar',
+            itemStyle: {
+                normal: {
+                    label: {
+                        show: true,
+                        position: 'right',
+                        textStyle: {
+                            color: 'black',
+                            fontSize: 7,
+                        },
+                        formatter: (params: any) => {
+                            return params.value.toFixed(5);
+                        }
+                    }
+                }
+            },
         }
-    ]
+    ],
+    dataZoom: [{
+        type: 'slider',
+        start: 0,
+        end: 100,
+        zoomOnMouseWheel: false,
+        moveOnMouseMove: true,
+        moveOnMouseWheel: true,
+        showDetail: false,
+    }]
 });
 </script>
 
