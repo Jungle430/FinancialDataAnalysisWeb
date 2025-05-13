@@ -11,7 +11,6 @@ import { useFocus } from '@/views/Login/composables/useFocus';
 import { goto } from '@/utils/routerUtils';
 
 const router = useRouter();
-const tokenStore = TokenStore();
 
 const { isFocus, handleBlur, handleFocus } = useFocus()
 
@@ -42,7 +41,7 @@ const loginFormRules: FormRules = {
 const handleLogin = () => {
   login(loginFormData.phone, loginFormData.password)
     .then(res => {
-      tokenStore.setToken(res.data.token);
+      TokenStore().setToken(res.data.token);
       goto({ name: 'stock' })
     })
     .catch(err => {

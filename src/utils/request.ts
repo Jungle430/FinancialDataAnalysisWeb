@@ -12,8 +12,7 @@ const service = axios.create({
 
 service.interceptors.request.use(
   config => {
-    const tokenStore = TokenStore();
-    const token = tokenStore.getToken();
+    const token = TokenStore().getToken;
     if (token !== null) {
       config.headers[HEADERS_TOKEN_KEY] = token;
     }
@@ -32,7 +31,7 @@ service.interceptors.response.use(
       switch (result.code) {
         case 510:
           message.error(result.errMessage || '没有权限,请登陆!');
-          goto('login');
+          goto({ name: 'login' });
           break;
         default:
           message.error(result.errMessage || '服务器错误,请稍后重试!');
