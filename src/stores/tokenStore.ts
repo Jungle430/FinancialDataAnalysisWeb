@@ -10,6 +10,7 @@ export const TokenStore = defineStore('token',
     };
     const getToken = computed(() => token.value);
     return {
+      token,
       setToken,
       getToken
     }
