@@ -1,6 +1,14 @@
 <script lang="ts" setup>
 import { IconGithub, IconEmail } from '@arco-design/web-vue/es/icon';
-import TelegramNegative from '@/assets/icons/telegram-negative.svg'
+import TelegramNegative from '@/assets/icons/telegram-negative.svg';
+import { onMounted, ref } from 'vue';
+import { getUserInfo } from '@/apis/user';
+
+const username = ref("");
+
+onMounted(() => {
+  getUserInfo().then((res) => { username.value = res.data.username; });
+})
 </script>
 
 <template>
@@ -16,6 +24,7 @@ import TelegramNegative from '@/assets/icons/telegram-negative.svg'
       </a-space>
     </div>
     <ul class="right-side">
+      <li>欢迎 <b>{{ username }}</b> !</li>
       <li>
         <a href="https://t.me/Junglehaobin" target="_blank">
           <TelegramNegative :width="30" :height="30" />

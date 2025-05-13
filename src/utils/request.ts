@@ -1,6 +1,7 @@
 import { TokenStore } from "@/stores/tokenStore";
 import axios from "axios";
 import { message } from 'ant-design-vue';
+import { goto } from "./routerUtils";
 
 const HEADERS_TOKEN_KEY: string = 'X-Token'
 
@@ -31,6 +32,7 @@ service.interceptors.response.use(
       switch (result.code) {
         case 510:
           message.error(result.errMessage || '没有权限,请登陆!');
+          goto('login');
           break;
         default:
           message.error(result.errMessage || '服务器错误,请稍后重试!');

@@ -10,3 +10,10 @@ export function login(phone: string, password: string) {
     }
   })
 }
+
+export function getUserInfo() {
+  return service({
+    url: '/user/info',
+    method: 'get'
+  })
+}
