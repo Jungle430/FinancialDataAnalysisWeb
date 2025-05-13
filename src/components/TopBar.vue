@@ -2,7 +2,8 @@
 import { IconGithub, IconEmail } from '@arco-design/web-vue/es/icon';
 import TelegramNegative from '@/assets/icons/telegram-negative.svg';
 import { onMounted, ref } from 'vue';
-import { getUserInfo } from '@/apis/user';
+import { getUserInfo, logout } from '@/apis/user';
+import { goto } from '@/utils/routerUtils';
 
 const username = ref("");
 
@@ -25,6 +26,7 @@ onMounted(() => {
     </div>
     <ul class="right-side">
       <li>欢迎 <b>{{ username }}</b> !</li>
+      <li><a-button @click="() => { logout(); goto({ name: 'login' }) }">登出</a-button></li>
       <li>
         <a href="https://t.me/Junglehaobin" target="_blank">
           <TelegramNegative :width="30" :height="30" />

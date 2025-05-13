@@ -17,3 +17,10 @@ export function getUserInfo() {
     method: 'get'
   })
 }
+
+export function logout() {
+  return service({
+    url: '/user/logout',
+    method: 'post'
+  })
+}
