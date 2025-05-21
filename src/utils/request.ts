@@ -1,7 +1,7 @@
 import { TokenStore } from "@/stores/tokenStore";
 import axios from "axios";
 import { message } from 'ant-design-vue';
-import { goto } from "./routerUtils";
+import { goto } from "@/utils/routerUtils";
 
 const HEADERS_TOKEN_KEY: string = 'X-Token'
 
