@@ -18,6 +18,8 @@ import BondsEchats from '@/components/BondsEchats.vue';
 import AnalysisTwoFinancialData from '@/components/AnalysisTwoFinancialData.vue';
 import AnalysisFinancialDataKinds from '@/components/AnalysisFinancialDataKinds.vue';
 import AnalysisRegionAndMarket from '@/components/AnalysisRegionAndMarket.vue';
+import AnalysisTwoFinancialDataBranchHighestAndLowest from '@/components/AnalysisTwoFinancialDataBranchHighestAndLowest.vue';
+import CommoditiesCurrencyNumber from '@/components/CommoditiesCurrencyNumber.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -85,6 +87,16 @@ const router = createRouter({
               name: 'analysisRegionAndMarket',
               component: AnalysisRegionAndMarket
             },
+            {
+              path: 'analysisTwoFinancialDataBranchHighestAndLowest',
+              name: 'analysisTwoFinancialDataBranchHighestAndLowest',
+              component: AnalysisTwoFinancialDataBranchHighestAndLowest,
+            },
+            {
+              path: 'commoditiesCurrencyNumber',
+              name: 'commoditiesCurrencyNumber',
+              component: CommoditiesCurrencyNumber
+            }
           ]
         },
 

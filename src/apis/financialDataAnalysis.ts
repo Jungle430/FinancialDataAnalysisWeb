@@ -36,3 +36,17 @@ export function analysisRegionAndMarket() {
     method: 'get'
   });
 }
+
+export function analysisTwoFinancialDataBranchHighestAndLowest() {
+  return service.request({
+    url: '/financialDataAnalysis/analysisTwoFinancialDataBranchHighestAndLowest',
+    method: 'get'
+  });
+}
+
+export function getCommoditiesCurrencyNumber() {
+  return service.request({
+    url: '/financialDataAnalysis/commoditiesCurrencyNumber',
+    method: 'get'
+  });
+}
