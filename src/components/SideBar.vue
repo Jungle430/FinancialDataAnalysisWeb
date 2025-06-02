@@ -31,6 +31,7 @@ import { IconApps } from '@arco-design/web-vue/es/icon';
         <a-menu-item key="4_3"
           @click="() => { goto({ name: 'analysisTwoFinancialDataBranchHighestAndLowest' }) }">高度正/负相关金融数据种类</a-menu-item>
         <a-menu-item key="4_4" @click="() => { goto({ name: 'commoditiesCurrencyNumber' }) }">商品与货币的关系</a-menu-item>
+        <a-menu-item key="4_5" @click="() => { goto({ name: 'stockPredict' }) }">股票数据预测</a-menu-item>
       </a-sub-menu>
     </a-menu>
   </div>

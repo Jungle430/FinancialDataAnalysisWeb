@@ -50,3 +50,17 @@ export function getCommoditiesCurrencyNumber() {
     method: 'get'
   });
 }
+
+export function getStockPredictData(code: string) {
+  return service.request({
+    url: `/financialDataAnalysis/predict/data/${code}`,
+    method: 'get',
+  });
+}
+
+export function getStockPredictAttributes() {
+  return service.request({
+    url: `/financialDataAnalysis/predict/attributes`,
+    method: 'get',
+  });
+}

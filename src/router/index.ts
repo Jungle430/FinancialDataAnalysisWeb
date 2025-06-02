@@ -20,6 +20,7 @@ import AnalysisFinancialDataKinds from '@/components/AnalysisFinancialDataKinds.
 import AnalysisRegionAndMarket from '@/components/AnalysisRegionAndMarket.vue';
 import AnalysisTwoFinancialDataBranchHighestAndLowest from '@/components/AnalysisTwoFinancialDataBranchHighestAndLowest.vue';
 import CommoditiesCurrencyNumber from '@/components/CommoditiesCurrencyNumber.vue';
+import StockPredictTable from '@/components/StockPredictTable.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -96,6 +97,11 @@ const router = createRouter({
               path: 'commoditiesCurrencyNumber',
               name: 'commoditiesCurrencyNumber',
               component: CommoditiesCurrencyNumber
+            },
+            {
+              path: 'stockPredict',
+              name: 'stockPredict',
+              component: StockPredictTable
             }
           ]
         },

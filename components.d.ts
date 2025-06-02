@@ -34,6 +34,7 @@ declare module 'vue' {
     StockEcharts: typeof import('./src/components/StockEcharts.vue')['default']
     StockIndexEcharts: typeof import('./src/components/StockIndexEcharts.vue')['default']
     StockIndexTable: typeof import('./src/components/StockIndexTable.vue')['default']
+    StockPredictTable: typeof import('./src/components/StockPredictTable.vue')['default']
     StockTable: typeof import('./src/components/StockTable.vue')['default']
     TopBar: typeof import('./src/components/TopBar.vue')['default']
   }
