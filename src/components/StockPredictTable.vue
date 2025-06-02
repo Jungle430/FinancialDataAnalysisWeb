@@ -10,14 +10,15 @@ import { IconSearch, IconRefresh } from '@arco-design/web-vue/es/icon';
 import type { Pagination } from '@/types/page';
 import type { StockTableDataResponse } from '@/types/stockTableDataResponse';
 
-const attributes = ref<string>("");
+const attributes = ref("");
 
 onMounted(() => {
     getStockPredictAttributes().then(res => {
-        attributes.value = res.data.data;
-        console.log(attributes.value)
+        attributes.value = (res.data).join(" | ");
     });
 });
+
+const codeMapPredict = ref<Map<string, Array<number>>>(new Map());
 
 const tableColumns = ref<TableColumnData[]>([
     {
@@ -45,8 +46,8 @@ const tableColumns = ref<TableColumnData[]>([
         dataIndex: 'marketRegion',
     },
     {
-        title: attributes.value,
-        slotName: 'detail'
+        title: "预测值",
+        slotName: 'predict'
     }
 ]);
 
@@ -142,6 +143,9 @@ const fetchPageData = (searchData: StockTableForm, current: number) => {
                 name: stockTag.name,
                 marketRegion: `${stockTag.marketRegion.simplifiedChineseName}(${stockTag.marketRegion.englishName})`
             });
+            getStockPredictData(stockTag.code).then(predictValue => {
+                codeMapPredict.value.set(stockTag.code, predictValue.data);
+            });
         });
         pagination.value.current = current;
         pagination.value.total = stockTableDataResponse.total;
@@ -170,7 +174,7 @@ const reset = () => {
 
 <template>
     <div class="container">
-        <a-card :title="'股票数据'">
+        <a-card :title="`股票预测数据,预测值为明天的${attributes}`">
             <a-row>
                 <a-col :flex="1">
                     <a-form :model="stockTableFormData" :label-col-props="{ span: 6 }" :wrapper-col-props="{ span: 18 }"
@@ -236,8 +240,8 @@ const reset = () => {
             </a-row>
             <a-table :loading="loading" :data="tableData" :columns="tableColumns" :pagination="pagination"
                 @page-change="onPageChange">
-                <template #detail="{ record }">
-                    {{ getStockPredictData(record.code) }}
+                <template #predict="{ record }">
+                    {{ codeMapPredict.get(record.code) }}
                 </template>
             </a-table>
         </a-card>
